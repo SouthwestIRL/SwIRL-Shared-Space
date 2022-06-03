@@ -103,3 +103,51 @@ TODO - why does logging in fail
 ## Deployment
 
 The application is hosted on Heroku (PaaS Company) ([link](https://dashboard.heroku.com/apps)). The login credentials for admin access can be distributed as necessary. 
+
+Terms:
+
+`dyno` - the name of a container for heroku 
+
+### Heroku One Time setup:
+
+* Install Heroku CLI (make sure that it is included in the PATH)
+* `heroku login` (should open a browser window prompting login)
+
+> TODO - how to link/join an existing app
+
+### Heroku First Time setup:
+
+* `heroku create -a swirl-shared-space`
+
+Set the config vars (probably easiest on web):
+
+* via cli `heroku config:set KEY=VALUE`
+
+> Important!: any value set in teh configs will be visible to any user with permissions to edit the heroku app. They do not appear in the Git history.
+
+> Note: you may need to restart the app and possibly even reset the database
+
+### Deployment
+
+* `git push heroku main`
+* `heroku ps:scale web=1` - start an instance
+* `heroku open` - view it
+
+### Other Commands
+
+See logs: `heroku logs --tail`
+Reboot: `heroku restart`
+See running dynos: `heroku list`
+Enter a ssh bash prompt: `heroku run bash` (is this running locally?)
+
+### The Nuclear Option
+
+Reset the entire database and redeploy 
+
+1. `heroku ps:scale web=0`
+1. `heroku pg:reset`
+1. Add a new commit:
+   1. (optional: create empty commit) `git commit --allow-empty -m "Forcing Rebuild"`
+   1. `git push heroku main`
+1. `heroku ps:scale web=1`
+1. `heroku open`
