@@ -34,6 +34,14 @@ It is assumed that any user interested in the development will be comfortable wi
   1. `pipenv` - system for managing pip environments (selecting which items are 'installed', installing everything globally can occasionally lead to problems
 1. `postgressql` - Database
 
+> !!! IMPORTANT !!!
+>
+> Development on Windows is difficult; too many decisions were made that are predicated on Linux
+>
+> At this time, the use of Windows for development work is discouraged. I have left the documentation should someone want to champion this in the future. But for now it is a no-go.
+>
+> Windows Subsystem for Linux will be the preferred alternative for Windows users.
+
 #### Clone
 
 Clone the github folder into a local environment on your computer
@@ -67,11 +75,18 @@ Then:
 
 `create database sharedspace;`
 
+---
+
+`sudo service postgresql start`
+
+
 __Setup the environment:__
 
 `pip install pipenv`
 `pipenv shell`
 `pipenv install`
+
+> If you get an error about `pyscopg2`: `sudo apt install python3.9-dev libpq-dev`
 
 #### Secrets
 
