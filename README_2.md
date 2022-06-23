@@ -114,6 +114,18 @@ TODO - why does logging in fail
 
 ### Testing
 
+## Local Testing
+
+* Start postgres server: `postgresql start`
+* Export secrets to variables. For this I added an `.sh` script similar to `add_empty_secrets.sh` but with the appropriate values set. These can be gotten from the Heroku web interface. 
+   * To run a script in the current shell: `. some_name.sh`
+
+> TODO - is there a way to populate automatically from Heroku?
+
+* `pipenv shell`
+* `python manage.py runserver` 
+
+> TODO - `heroku local` would be more correct, but it doesn't seem to properly forward a WSL (Windows Subsystem for Linux) port to proper Windows making connecting impossible. Probably can setup a port forwarding rule to fix this. Also probably not worth the effort.
 
 ## Deployment
 
@@ -122,6 +134,8 @@ The application is hosted on Heroku (PaaS Company) ([link](https://dashboard.her
 Terms:
 
 `dyno` - the name of a container for heroku 
+
+> Note: Heroku CLI has many commands. Generally they are structured `heroku <namespace>:<command> args`. Many of the common ones are aliased. We use the aliases in this documentation where possible.
 
 ### Heroku One Time setup:
 
@@ -132,15 +146,16 @@ Terms:
 
 ### Heroku First Time setup:
 
-* `heroku create -a swirl-shared-space`
+* (Just skip if this fails) `heroku join -a swirl-shared-space`
+* `heroku git:remote -a swirl-shared-space`
 
 Set the config vars (probably easiest on web):
 
 * via cli `heroku config:set KEY=VALUE`
 
-> Important!: any value set in teh configs will be visible to any user with permissions to edit the heroku app. They do not appear in the Git history.
+> Important!: any value set in the configs will be visible to any user with permissions to edit the heroku app. They do not appear in the Git history.
 
-> Note: you may need to restart the app and possibly even reset the database
+> Note: you will need to restart the app and possibly even reset the database to pickup changes to the config variables
 
 ### Deployment
 

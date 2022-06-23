@@ -197,3 +197,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 AUTH_USER_MODEL = "reservation.User"
+
+# SUPER HACKY Way to get Google OAuth to be nice
+if DEBUG != True:
+    ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
