@@ -142,3 +142,5 @@ GitHub.sublime-settings
 # PyDev #
 .project
 .pydevproject
+open_secret
+add_secrets.sh
